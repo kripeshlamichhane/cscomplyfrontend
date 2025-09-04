@@ -16,6 +16,7 @@ const ClientHome = ({ user, onTabChange }) => {
     try {
       // Get all domains and controls for the framework
       const frameworkResponse = await axios.get(`http://localhost:8001/frameworks/${frameworkId}/domain/control`);
+      const frameworkResponse = await axios.get(`http://cs-comply:8000/frameworks/${frameworkId}/domain/control`);
       const framework = frameworkResponse.data;
       
       if (!framework.domains) return { progress: 0, totalControls: 0, controlsCompleted: 0 };
@@ -29,6 +30,7 @@ const ClientHome = ({ user, onTabChange }) => {
           for (const control of domain.controls) {
             try {
               const questionsResponse = await axios.get(`http://localhost:8001/assessments/2/responses?control_id=${control.id}`);
+              const questionsResponse = await axios.get(`http://cs-comply:8000/assessments/2/responses?control_id=${control.id}`);
               const questions = questionsResponse.data;
               totalQuestions += questions.length;
               answeredQuestions += questions.filter(q => q.response && q.response !== '').length;
@@ -53,6 +55,7 @@ const ClientHome = ({ user, onTabChange }) => {
       try {
         setLoading(true);
         const response = await axios.get('http://localhost:8001/organizations/1/frameworks/');
+        const response = await axios.get('http://cs-comply:8000/organizations/1/frameworks/');
         setFrameworks(response.data);
         
         // Calculate progress for each framework
