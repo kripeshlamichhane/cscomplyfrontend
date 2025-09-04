@@ -21,7 +21,7 @@ const ClientDashboard = ({ onLogout }) => {
     const path = location.pathname;
     if (path.startsWith('/frameworks') || path.startsWith('/assessments')) {
       setActiveTab('frameworks');
-    } else if (path === '/' || path.startsWith('/settings') === false && path.startsWith('/documents') === false && path.startsWith('/reports') === false) {
+    } else if (path === '/' || (path.startsWith('/settings') === false && path.startsWith('/documents') === false && path.startsWith('/reports') === false)) {
       setActiveTab('home');
     } else if (path.startsWith('/documents')) {
       setActiveTab('documents');

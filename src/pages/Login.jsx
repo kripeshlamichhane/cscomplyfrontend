@@ -43,7 +43,6 @@ const LoginPage = ( {onLogin} ) => {
       };
     }
     
-    setUser(mockUser);
   };
 
   return (
