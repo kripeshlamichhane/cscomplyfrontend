@@ -1,5 +1,5 @@
-import React, { useState, useContext, useEffect } from 'react';
-import { Shield, Home, FileText, Settings, BarChart3, FolderOpen, Bell, User, ChevronDown, ChevronLeft } from 'lucide-react';
+import React, { useState, useEffect } from 'react';
+import { Shield, Home, Settings, BarChart3, FolderOpen, Bell, User, ChevronDown, ChevronLeft } from 'lucide-react';
 import { Link, Outlet, useLocation } from 'react-router-dom';
 
 const ClientDashboard = ({ onLogout }) => {
@@ -14,16 +14,7 @@ const ClientDashboard = ({ onLogout }) => {
   const [activeTab, setActiveTab] = useState('home');
   const [showUserMenu, setShowUserMenu] = useState(false);
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
-  const [selectedFrameworkId, setSelectedFrameworkId] = useState('cmmc-2.0');
   const location = useLocation();
-
-  // Handle tab changes with optional framework selection
-  const handleTabChange = (tab, frameworkId = null) => {
-    setActiveTab(tab);
-    if (frameworkId) {
-      setSelectedFrameworkId(frameworkId);
-    }
-  };
 
   // Sync active tab with current route; map /assessments to frameworks
   useEffect(() => {

@@ -6,21 +6,6 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 
 
 function App() {
-  const [user, setUser] = useState(null);
-  const [showSignupRequest, setShowSignupRequest] = useState(false);
-
-  const handleLogout = () => {
-    setUser(null);
-    setShowSignupRequest(false);
-  };
-
-  const handleSignupRequest = () => {
-    setShowSignupRequest(true);
-  };
-
-  const handleBackToLogin = () => {
-    setShowSignupRequest(false);
-  };
   return (
     <Router>
     <Suspense fallback={<div>Loading...</div>}>
