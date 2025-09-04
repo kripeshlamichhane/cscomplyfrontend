@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { BarChart3, Download, FileText, TrendingUp, CheckCircle, AlertCircle, Eye, Search, Share } from 'lucide-react';
 
 const ClientReports = ({ user }) => {
+  const navigate = useNavigate();
   const [selectedReport, setSelectedReport] = useState(null);
   const [filterStatus, setFilterStatus] = useState('all');
   const [searchTerm, setSearchTerm] = useState('');
