@@ -30,7 +30,6 @@ const ClientHome = ({ user, onTabChange }) => {
           for (const control of domain.controls) {
             try {
               const questionsResponse = await axios.get(`http://localhost:8001/assessments/2/responses?control_id=${control.id}`);
-              const questionsResponse = await axios.get(`http://cs-comply:8000/assessments/2/responses?control_id=${control.id}`);
               const questions = questionsResponse.data;
               totalQuestions += questions.length;
               answeredQuestions += questions.filter(q => q.response && q.response !== '').length;
