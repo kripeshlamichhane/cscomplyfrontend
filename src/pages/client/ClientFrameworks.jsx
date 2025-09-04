@@ -14,7 +14,6 @@ const ClientFrameworks = ({ user, onTabChange }) => {
       try {
         setLoading(true);
         const response = await axios.get('http://localhost:8001/organizations/1/frameworks/');
-        const response = await axios.get('http://cs-comply:8000/organizations/1/frameworks/');
         setFrameworks(response.data);
       } catch (error) {
         console.error('Failed to fetch frameworks:', error);
