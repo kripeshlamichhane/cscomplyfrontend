@@ -15,7 +15,6 @@ const ClientHome = ({ user, onTabChange }) => {
   const calculateFrameworkProgress = async (frameworkId) => {
     try {
       // Get all domains and controls for the framework
-      const frameworkResponse = await axios.get(`http://localhost:8001/frameworks/${frameworkId}/domain/control`);
       const frameworkResponse = await axios.get(`http://cs-comply:8000/frameworks/${frameworkId}/domain/control`);
       const framework = frameworkResponse.data;
       
