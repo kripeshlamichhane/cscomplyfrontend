@@ -1,0 +1,18 @@
+version: '3.9'
+
+services:
+  frontend:
+    build:
+      context: .
+    ports:
+      - "3000:3000"
+    volumes:
+      - .:/app                # Mount local code
+      - /app/node_modules     # Keep container dependencies
+    environment:
+      - CHOKIDAR_USEPOLLING=true
+    command: ["npm", "start", "--", "--host", "0.0.0.0"]
+    
+networks:
+  cs-comply-network:
+    external: true
