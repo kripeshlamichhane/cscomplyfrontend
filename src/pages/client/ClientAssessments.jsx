@@ -570,61 +570,9 @@ const ClientAssessments = () => {
             </div>
           )}
         </div>
-      );
-    }
-
-    // Domain selection view
-    if (!currentDomain) {
-      return (
-        <div className="p-6 space-y-6">
-          <div className="bg-white rounded-lg shadow-sm p-6 border border-gray-200">
-            <button
-              onClick={() => setSelectedFramework(null)}
-              className="text-blue-600 hover:text-blue-800 text-sm font-medium mb-2 inline-flex items-center"
-            >
-              <ArrowLeft className="h-4 w-4 mr-1" />
-              Back to Frameworks
-            </button>
-            <h1 className="text-2xl font-bold text-gray-900 mb-2">{selectedFramework.name} Domains</h1>
-            <p className="text-gray-600">Select a domain to begin answering questions.</p>
-          </div>
-
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-            {domains.map((domain) => (
-              <div
-                key={domain.id}
-                onClick={() => handleDomainSelect(domain)}
-                className="bg-white rounded-lg shadow-sm border-2 border-gray-200 hover:border-blue-300 hover:shadow-md transition-all duration-200 cursor-pointer p-6"
-              >
-                <h3 className="text-lg font-semibold text-gray-900 mb-2">{domain.name}</h3>
-                <p className="text-gray-600 text-sm mb-4">{domain.description}</p>
-                
-                <div className="mb-4">
-                  <div className="flex items-center justify-between mb-2">
-                    <span className="text-sm font-medium text-gray-700">Progress</span>
-                    <span className="text-sm text-gray-600">
-                      {domain.answeredQuestions}/{domain.totalQuestions}
-                    </span>
-                  </div>
-                  <div className="w-full bg-gray-200 rounded-full h-2">
-                    <div
-                      className="bg-blue-600 h-2 rounded-full transition-all duration-300"
-                      style={{ width: `${(domain.answeredQuestions / domain.totalQuestions) * 100}%` }}
-                    />
-                  </div>
-                </div>
-                
-                <button className="w-full bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700 transition-colors font-medium">
-                  Start Domain
-                </button>
-              </div>
-            ))}
-          </div>
-        </div>
-      );
-    }
-
-    return null;
-  };
+      </div>
+    </div>
+  );
+};
 
 export default ClientAssessments;
