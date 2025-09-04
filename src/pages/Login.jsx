@@ -1,9 +1,7 @@
 import React, { useState } from 'react';
 import { Mail, Lock, Loader2, Shield } from 'lucide-react';
-import { Link } from 'react-router-dom';
 
-const LoginPage = ( {onLogin} ) => {
-  const [user, setUser] = useState(null);
+const LoginPage = ({ onLogin }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [isLoading, setIsLoading] = useState(false);
@@ -17,32 +15,6 @@ const LoginPage = ( {onLogin} ) => {
     
     onLogin(email, password);
     setIsLoading(false);
-  };
-  const handleLogin = (email, password) => {
-    // Mock authentication - in real app this would call an API
-    let mockUser;
-    
-    // Mock different user types based on email domain
-    if (email.includes('consulting') || email.includes('advisor')) {
-      mockUser = {
-        id: '1',
-        email: email,
-        name: 'Sarah Johnson',
-        role: 'consultant',
-        organizationName: 'SecureConsult Partners',
-        organizationType: 'Consulting'
-      };
-    } else {
-      mockUser = {
-        id: '2',
-        email: email,
-        name: 'John Smith',
-        role: 'client',
-        organizationName: 'TechCorp Industries',
-        organizationType: 'Client'
-      };
-    }
-    
   };
 
   return (
@@ -124,9 +96,8 @@ const LoginPage = ( {onLogin} ) => {
             </div>
 
             <div>
-              <Link
+              <button
                 type="submit"
-                to="/"
                 disabled={isLoading}
                 className="group relative w-full flex justify-center py-3 px-4 border border-transparent text-sm font-medium rounded-lg text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200"
               >
@@ -135,7 +106,7 @@ const LoginPage = ( {onLogin} ) => {
                 ) : (
                   'Sign In'
                 )}
-              </Link>
+              </button>
             </div>
           </form>
         </div>
@@ -143,8 +114,7 @@ const LoginPage = ( {onLogin} ) => {
         {/* Footer */}
         <div className="text-center text-sm text-gray-600">
           <p className="mb-4">Don't have an account?</p>
-          <button to="/signup"
-            onClick={handleLogin}
+          <button
             type="button" 
             className="inline-flex items-center px-6 py-3 border-2 border-blue-600 text-blue-600 font-semibold rounded-lg hover:bg-blue-600 hover:text-white transition-all duration-200 transform hover:scale-105 shadow-md hover:shadow-lg"
           >
