@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { CheckCircle, Lock, ArrowRight, Info, Clock, Shield } from 'lucide-react';
+import { CheckCircle, Lock, ArrowRight, Info, Clock } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 
 const ClientFrameworks = ({ user, onTabChange }) => {

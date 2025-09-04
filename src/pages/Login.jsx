@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Mail, Lock, Loader2, Shield } from 'lucide-react';
 
-const LoginPage = ({ onLogin }) => {
+const LoginPage = ({ onLogin, onShowSignup }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [isLoading, setIsLoading] = useState(false);

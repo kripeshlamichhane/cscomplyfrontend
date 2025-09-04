@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { FileText, Download, Filter, Eye, Edit, Trash2, User, Search, Upload, Plus } from 'lucide-react';
+import { FileText, Download, Filter, Eye, Edit, Trash2, Search, Upload, Plus } from 'lucide-react';
 
 const ClientDocuments = ({ user }) => {
   const [searchTerm, setSearchTerm] = useState('');

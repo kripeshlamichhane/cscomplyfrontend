@@ -76,28 +76,6 @@ const ClientSettings = ({ user }) => {
     website: 'https://techcorp.com'
   };
 
-  // Original mock data for reference
-  const originalMockUsers = [
-    {
-      id: 1,
-      name: 'John Smith',
-      email: 'john.smith@example.com',
-      roles: ['Admin', 'Assessor', 'Implementer', 'Associate'],
-      status: 'Active',
-      lastLogin: '3/15/2024',
-      avatar: null
-    },
-    {
-      id: 2,
-      name: 'Sarah Johnson',
-      email: 'sarah.johnson@example.com',
-      roles: ['Admin', 'Assessor', 'Implementer', 'Associate'],
-      status: 'Active',
-      lastLogin: '3/14/2024',
-      avatar: null
-    }
-  ];
-
   const availableRoles = ['Admin', 'Assessor', 'Implementer', 'Associate'];
 
   const handleRoleToggle = (role) => {
