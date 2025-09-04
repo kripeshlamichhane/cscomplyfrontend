@@ -12,7 +12,7 @@ const ClientSettings = ({ user }) => {
   const [organizationUsers, setOrganizationUsers] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  // Initialize mock user data
+  // Use mock data instead of API calls
   useEffect(() => {
     setTimeout(() => {
       setOrganizationUsers([
@@ -58,7 +58,7 @@ const ClientSettings = ({ user }) => {
         }
       ]);
       setLoading(false);
-    }, 1000);
+    }, 500);
   }, []);
 
   // Mock organization settings

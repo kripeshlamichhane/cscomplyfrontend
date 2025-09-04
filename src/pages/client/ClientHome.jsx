@@ -11,9 +11,8 @@ const ClientHome = ({ user, onTabChange }) => {
   const [frameworkProgress, setFrameworkProgress] = useState({});
 
 
-  // Mock frameworks data with progress (replacing API calls)
+  // Use mock data instead of API calls
   useEffect(() => {
-    // Simulate API loading delay
     setTimeout(() => {
       const mockFrameworks = [
         {
@@ -59,7 +58,7 @@ const ClientHome = ({ user, onTabChange }) => {
       
       setFrameworkProgress(mockProgressData);
       setLoading(false);
-    }, 1000);
+    }, 500);
   }, []);
 
   // Calculate overall progress from all frameworks

@@ -170,7 +170,6 @@ const ClientAssessments = () => {
   };
 
   useEffect(() => {
-    // Simulate loading delay
     setTimeout(() => {
       // Check if a specific framework was selected from navigation
       const selectedFrameworkId = location.state?.selectedFrameworkId;
@@ -187,7 +186,7 @@ const ClientAssessments = () => {
       }
       
       setLoading(false);
-    }, 1000);
+    }, 500);
   }, [location.state]);
 
   const handleFrameworkSelect = (framework) => {

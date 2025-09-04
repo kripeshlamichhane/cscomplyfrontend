@@ -7,9 +7,8 @@ const ClientFrameworks = ({ user, onTabChange }) => {
   const [frameworks, setFrameworks] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  // Mock frameworks data (replacing API call)
+  // Use mock data instead of API calls
   useEffect(() => {
-    // Simulate API loading delay
     setTimeout(() => {
       setFrameworks([
         {
@@ -34,7 +33,7 @@ const ClientFrameworks = ({ user, onTabChange }) => {
         }
       ]);
       setLoading(false);
-    }, 1000);
+    }, 500);
   }, []);
 
   // Mock available frameworks (this would come from a different API endpoint)
