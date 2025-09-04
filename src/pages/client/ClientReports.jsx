@@ -5,8 +5,9 @@ const ClientReports = ({ user }) => {
   const [selectedReport, setSelectedReport] = useState(null);
   const [filterStatus, setFilterStatus] = useState('all');
   const [searchTerm, setSearchTerm] = useState('');
+  const [loading, setLoading] = useState(false);
 
-  // Mock report data with enhanced information
+  // Enhanced mock report data
   const reports = [
     {
       id: 1,
@@ -80,10 +81,78 @@ const ClientReports = ({ user }) => {
       reportType: 'Draft Report',
       nextReview: '2024-03-15'
     }
+    ,
+    {
+      id: 5,
+      name: 'PCI DSS Compliance Report',
+      framework: 'PCI DSS',
+      status: 'Completed',
+      completionDate: '2024-01-20',
+      score: 92,
+      totalControls: 78,
+      compliantControls: 72,
+      findings: 6,
+      criticalFindings: 0,
+      highFindings: 2,
+      mediumFindings: 4,
+      description: 'Payment Card Industry Data Security Standard assessment',
+      generatedBy: 'System',
+      reportType: 'Full Assessment',
+      nextReview: '2024-07-20'
+    },
+    {
+      id: 6,
+      name: 'NIST CSF Implementation Report',
+      framework: 'NIST CSF',
+      status: 'In Progress',
+      completionDate: null,
+      score: 58,
+      totalControls: 108,
+      compliantControls: 63,
+      findings: 45,
+      criticalFindings: 3,
+      highFindings: 15,
+      mediumFindings: 27,
+      description: 'NIST Cybersecurity Framework implementation assessment',
+      generatedBy: 'Alex Chen',
+      reportType: 'Interim Report',
+      nextReview: '2024-04-10'
+    }
   ];
+
+  // Mock detailed report sections for when viewing a specific report
+  const mockReportSections = {
+    executiveSummary: `This comprehensive assessment evaluates the organization's compliance posture against industry standards and regulatory requirements. The assessment methodology follows established frameworks and incorporates both automated scanning and manual verification processes.`,
+    
+    keyFindings: [
+      'Strong foundational security controls are in place',
+      'Documentation practices meet industry standards',
+      'Access control mechanisms require enhancement',
+      'Incident response procedures need updating',
+      'Regular security awareness training is conducted'
+    ],
+    
+    recommendations: [
+      'Implement multi-factor authentication for all privileged accounts',
+      'Enhance network segmentation controls',
+      'Update incident response playbooks',
+      'Conduct quarterly vulnerability assessments',
+      'Establish continuous monitoring processes'
+    ],
+    
+    nextSteps: [
+      'Address critical findings within 30 days',
+      'Develop remediation timeline for high-priority items',
+      'Schedule follow-up assessment',
+      'Implement continuous monitoring',
+      'Update policies and procedures as needed'
+    ]
+  };
 
   const handleDownloadReport = (reportId) => {
     console.log('Downloading report:', reportId);
+    // Simulate download
+    alert(`Downloading report ${reportId}...`);
   };
 
   const handleViewReport = (report) => {
@@ -92,6 +161,8 @@ const ClientReports = ({ user }) => {
 
   const handleShareReport = (reportId) => {
     console.log('Sharing report:', reportId);
+    // Simulate sharing
+    alert(`Sharing report ${reportId}...`);
   };
 
   const getStatusColor = (status) => {
@@ -257,32 +328,28 @@ const ClientReports = ({ user }) => {
             <div className="prose max-w-none">
               <h4 className="text-lg font-semibold text-gray-800 mb-3">Executive Summary</h4>
               <p className="text-gray-600 mb-6">
-                This report provides a comprehensive assessment of {selectedReport.framework} compliance 
-                for {user.organizationName}. The assessment was conducted based on the latest framework 
-                requirements and industry best practices.
+                {mockReportSections.executiveSummary}
               </p>
               
               <h4 className="text-lg font-semibold text-gray-800 mb-3">Key Findings</h4>
               <ul className="list-disc list-inside text-gray-600 space-y-2 mb-6">
-                <li>Overall compliance score of {selectedReport.score}%</li>
-                <li>{selectedReport.compliantControls} out of {selectedReport.totalControls} controls are fully compliant</li>
-                <li>{selectedReport.findings} findings require attention</li>
-                <li>Risk level: {getRiskLevel(selectedReport.criticalFindings, selectedReport.highFindings).level}</li>
+                {mockReportSections.keyFindings.map((finding, index) => (
+                  <li key={index}>{finding}</li>
+                ))}
               </ul>
 
               <h4 className="text-lg font-semibold text-gray-800 mb-3">Recommendations</h4>
-              <p className="text-gray-600 mb-6">
-                Based on the assessment results, we recommend focusing on the identified gaps 
-                to improve your overall compliance posture. Priority should be given to 
-                critical and high-risk findings that could impact your security posture.
-              </p>
+              <ul className="list-disc list-inside text-gray-600 space-y-2 mb-6">
+                {mockReportSections.recommendations.map((recommendation, index) => (
+                  <li key={index}>{recommendation}</li>
+                ))}
+              </ul>
 
               <h4 className="text-lg font-semibold text-gray-800 mb-3">Next Steps</h4>
               <ul className="list-disc list-inside text-gray-600 space-y-2">
-                <li>Address critical findings immediately</li>
-                <li>Develop remediation plan for high-priority items</li>
-                <li>Schedule follow-up assessment for {new Date(selectedReport.nextReview).toLocaleDateString()}</li>
-                <li>Implement continuous monitoring processes</li>
+                {mockReportSections.nextSteps.map((step, index) => (
+                  <li key={index}>{step}</li>
+                ))}
               </ul>
             </div>
           </div>
@@ -430,7 +497,7 @@ const ClientReports = ({ user }) => {
 
       {/* Empty State */}
       {filteredReports.length === 0 && (
-        <div className="text-center py-12">
+        <div className="bg-white rounded-xl shadow-sm border border-gray-100 text-center py-12">
           <BarChart3 className="h-12 w-12 text-gray-400 mx-auto mb-4" />
           <h3 className="text-lg font-medium text-gray-900 mb-2">No reports found</h3>
           <p className="text-gray-600">
@@ -439,6 +506,14 @@ const ClientReports = ({ user }) => {
               : 'Complete your first assessment to generate compliance reports.'
             }
           </p>
+          {!searchTerm && filterStatus === 'all' && (
+            <button 
+              onClick={() => navigate('/frameworks')}
+              className="mt-4 bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition-colors"
+            >
+              Start Assessment
+            </button>
+          )}
         </div>
       )}
     </div>

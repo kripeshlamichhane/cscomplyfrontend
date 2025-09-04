@@ -115,7 +115,8 @@ const LoginPage = ({ onLogin }) => {
         <div className="text-center text-sm text-gray-600">
           <p className="mb-4">Don't have an account?</p>
           <button
-            type="button" 
+            type="button"
+            onClick={onShowSignup}
             className="inline-flex items-center px-6 py-3 border-2 border-blue-600 text-blue-600 font-semibold rounded-lg hover:bg-blue-600 hover:text-white transition-all duration-200 transform hover:scale-105 shadow-md hover:shadow-lg"
           >
             <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
