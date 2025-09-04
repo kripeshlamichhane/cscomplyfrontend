@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { Building, Edit, X, Shield, FileText, BarChart3, Download, Clock, CheckCircle, AlertCircle, Activity, Filter, ArrowRight } from 'lucide-react';
-import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
 const ClientHome = ({ user, onTabChange }) => {
@@ -11,71 +10,61 @@ const ClientHome = ({ user, onTabChange }) => {
   const [loading, setLoading] = useState(true);
   const [frameworkProgress, setFrameworkProgress] = useState({});
 
-  // Calculate progress for a framework
-  const calculateFrameworkProgress = async (frameworkId) => {
-    try {
-      // Get all domains and controls for the framework
-      const frameworkResponse = await axios.get(`http://localhost:8001/frameworks/${frameworkId}/domain/control`);
-      const framework = frameworkResponse.data;
-      
-      if (!framework.domains) return { progress: 0, totalControls: 0, controlsCompleted: 0 };
-      
-      let totalQuestions = 0;
-      let answeredQuestions = 0;
-      
-      // Fetch questions for all controls
-      for (const domain of framework.domains) {
-        if (domain.controls) {
-          for (const control of domain.controls) {
-            try {
-              const questionsResponse = await axios.get(`http://localhost:8001/assessments/2/responses?control_id=${control.id}`);
-              const questions = questionsResponse.data;
-              totalQuestions += questions.length;
-              answeredQuestions += questions.filter(q => q.response && q.response !== '').length;
-            } catch (error) {
-              console.error(`Failed to fetch questions for control ${control.id}:`, error);
-            }
-          }
-        }
-      }
-      
-      const progress = totalQuestions > 0 ? Math.round((answeredQuestions / totalQuestions) * 100) : 0;
-      return { progress, totalQuestions, answeredQuestions };
-    } catch (error) {
-      console.error('Failed to calculate framework progress:', error);
-      return { progress: 0, totalQuestions: 0, answeredQuestions: 0 };
-    }
-  };
 
-  // Fetch frameworks from API and calculate progress
+  // Mock frameworks data with progress (replacing API calls)
   useEffect(() => {
-    const fetchFrameworks = async () => {
-      try {
-        setLoading(true);
-        const response = await axios.get('http://localhost:8001/organizations/1/frameworks/');
-        setFrameworks(response.data);
-        
-        // Calculate progress for each framework
-        const progressData = {};
-        for (const framework of response.data) {
-          const progress = await calculateFrameworkProgress(framework.framework_id);
-          progressData[framework.framework_id] = progress;
+    // Simulate API loading delay
+    setTimeout(() => {
+      const mockFrameworks = [
+        {
+          framework_id: 'cmmc-2.0',
+          framework_name: 'CMMC 2.0',
+          framework_description: 'Cybersecurity Maturity Model Certification for defense contractors',
+          framework_version: 'Level 2',
+          framework_number: '2.0',
+          assessment_id: 'assessment-1',
+          assessment_started_at: '2024-01-15T10:00:00Z',
+          assessment_status: 'in_progress'
+        },
+        {
+          framework_id: 'iso-27001',
+          framework_name: 'ISO 27001',
+          framework_description: 'International standard for information security management systems',
+          framework_version: '2022',
+          framework_number: '27001',
+          assessment_id: 'assessment-2',
+          assessment_started_at: '2024-02-01T09:00:00Z',
+          assessment_status: 'in_progress'
+        },
+        {
+          framework_id: 'gdpr',
+          framework_name: 'GDPR',
+          framework_description: 'General Data Protection Regulation for data privacy',
+          framework_version: '2018',
+          framework_number: 'GDPR',
+          assessment_id: 'assessment-3',
+          assessment_started_at: '2024-02-15T14:00:00Z',
+          assessment_status: 'completed'
         }
-        setFrameworkProgress(progressData);
-      } catch (error) {
-        console.error('Failed to fetch frameworks:', error);
-        setFrameworks([]);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchFrameworks();
+      ];
+      
+      setFrameworks(mockFrameworks);
+      
+      // Mock progress data
+      const mockProgressData = {
+        'cmmc-2.0': { progress: 65, totalQuestions: 110, answeredQuestions: 72 },
+        'iso-27001': { progress: 45, totalQuestions: 95, answeredQuestions: 43 },
+        'gdpr': { progress: 100, totalQuestions: 78, answeredQuestions: 78 }
+      };
+      
+      setFrameworkProgress(mockProgressData);
+      setLoading(false);
+    }, 1000);
   }, []);
 
   // Calculate overall progress from all frameworks
   const calculateOverallProgress = () => {
-    if (Object.keys(frameworkProgress).length === 0) return 65; // Default fallback
+    if (Object.keys(frameworkProgress).length === 0) return 70; // Default fallback
     
     const totalProgress = Object.values(frameworkProgress).reduce((sum, progress) => sum + progress.progress, 0);
     const averageProgress = totalProgress / Object.keys(frameworkProgress).length;
@@ -119,9 +108,9 @@ const ClientHome = ({ user, onTabChange }) => {
 
   // Documents summary
   const documentsSummary = {
-    totalDocuments: 24,
-    policies: 8,
-    evidence: 16
+    totalDocuments: 32,
+    policies: 12,
+    evidence: 20
   };
 
   // Recent reports

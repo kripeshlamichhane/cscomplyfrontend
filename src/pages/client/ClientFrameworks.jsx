@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { CheckCircle, Lock, ArrowRight, Info, Clock, Shield } from 'lucide-react';
-import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
 const ClientFrameworks = ({ user, onTabChange }) => {
@@ -8,22 +7,34 @@ const ClientFrameworks = ({ user, onTabChange }) => {
   const [frameworks, setFrameworks] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  // Fetch frameworks from API
+  // Mock frameworks data (replacing API call)
   useEffect(() => {
-    const fetchFrameworks = async () => {
-      try {
-        setLoading(true);
-        const response = await axios.get('http://localhost:8001/organizations/1/frameworks/');
-        setFrameworks(response.data);
-      } catch (error) {
-        console.error('Failed to fetch frameworks:', error);
-        setFrameworks([]);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchFrameworks();
+    // Simulate API loading delay
+    setTimeout(() => {
+      setFrameworks([
+        {
+          framework_id: 'cmmc-2.0',
+          framework_name: 'CMMC 2.0',
+          framework_description: 'Cybersecurity Maturity Model Certification for defense contractors',
+          framework_version: 'Level 2',
+          framework_number: '2.0',
+          assessment_id: 'assessment-1',
+          assessment_started_at: '2024-01-15T10:00:00Z',
+          assessment_status: 'in_progress'
+        },
+        {
+          framework_id: 'iso-27001',
+          framework_name: 'ISO 27001',
+          framework_description: 'International standard for information security management systems',
+          framework_version: '2022',
+          framework_number: '27001',
+          assessment_id: 'assessment-2',
+          assessment_started_at: '2024-02-01T09:00:00Z',
+          assessment_status: 'in_progress'
+        }
+      ]);
+      setLoading(false);
+    }, 1000);
   }, []);
 
   // Mock available frameworks (this would come from a different API endpoint)
