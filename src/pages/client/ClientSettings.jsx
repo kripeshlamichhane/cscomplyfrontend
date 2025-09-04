@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Edit, Trash2, User } from 'lucide-react';
 
 const ClientSettings = ({ user }) => {
@@ -372,7 +372,6 @@ const ClientSettings = ({ user }) => {
 
                 {/* Actions */}
                 <div className="col-span-2 flex items-center space-x-2">
-                  <button className="p-1 text-blue-600 hover:text-blue-800 transition-colors">
                   <button 
                     onClick={() => handleEditUser(orgUser)}
                     className="p-1 text-blue-600 hover:text-blue-800 transition-colors"
@@ -393,7 +392,7 @@ const ClientSettings = ({ user }) => {
       </div>
 
       {/* User Statistics */}
-      <div className="bg-white rounded-lg shadow-sm p-6 border border-gray-200">
+      <div className="bg-white rounded-lg shadow-sm p-6 border border-gray-200 mt-6">
         <h2 className="text-lg font-semibold text-gray-900 mb-4">User Statistics</h2>
         <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
           <div className="text-center p-4 bg-blue-50 rounded-lg">
