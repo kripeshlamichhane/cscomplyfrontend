@@ -2678,21 +2678,21 @@ const ClientAssessments = () => {
         {/* Main Assessment Content */}
         <div className="flex-1 flex overflow-hidden">
           {/* Question Content - Scrollable */}
-          <div className="flex-1 overflow-y-auto">
+      <div className="flex-1 flex overflow-hidden">
             <div className="p-6">
-              {currentQuestion ? (
+        <div className={`bg-gray-50 transition-all duration-300 ${showHelp ? 'flex-1' : 'w-full'}`}>
                 <div className="max-w-4xl">
-                  {/* Control Header */}
+          <div className="bg-white border-b border-gray-200 p-4 sticky top-0 z-30">
                   <div className="bg-blue-50 rounded-lg p-6 mb-6 border border-blue-100">
                     <div className="flex items-center justify-between mb-4">
-                      <h2 className="text-xl font-bold text-gray-900">{selectedControl.name}</h2>
+                <h2 className="text-lg font-bold text-gray-900 mb-1">
                       <div className="text-sm text-blue-600">
                         {selectedControl.answeredQuestions} / {selectedControl.totalQuestions} answered
-                      </div>
+                <p className="text-gray-600 mb-3 text-sm">{currentControl.description}</p>
                     </div>
                     <p className="text-gray-700 mb-4">{selectedControl.description}</p>
                     
-                    {/* Control Progress */}
+                  <div className="flex-1 max-w-sm">
                     <div className="w-full bg-blue-200 rounded-full h-2">
                       <div
                         className="bg-blue-600 h-2 rounded-full transition-all duration-300"
@@ -2700,7 +2700,7 @@ const ClientAssessments = () => {
                       />
                     </div>
                   </div>
-
+                  <span className="text-xs font-medium text-gray-700">
                   {/* Question */}
                   <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6 mb-6">
                     <div className="flex items-start justify-between mb-4">
@@ -2797,23 +2797,23 @@ const ClientAssessments = () => {
                           id={`evidence-${currentQuestion?.id}`}
                         />
                         <label
-                          htmlFor={`evidence-${currentQuestion?.id}`}
+                  <div className="bg-blue-50 border border-blue-200 rounded-lg p-3 mb-4">
                           className="cursor-pointer inline-block mt-2 text-blue-600 hover:text-blue-700 text-sm font-medium"
                         >
                           Choose Files
                         </label>
                       </div>
-                    </div>
-
+                        <p className="text-xs font-medium text-blue-900 mb-1">Quick Tip:</p>
+                        <p className="text-xs text-blue-800">{question.quickTip}</p>
                     {/* Additional Comments */}
                     <div className="mb-6">
                       <label className="block text-sm font-medium text-gray-700 mb-2">
                         Additional Comments
                       </label>
                       <textarea
-                        rows={4}
-                        value={currentComments}
-                        onChange={(e) => handleCommentsChange(currentQuestion.id, e.target.value)}
+                <div className="mb-4">
+                  <label className="block text-xs font-medium text-gray-700 mb-2">Your Response</label>
+                  <div className="grid grid-cols-2 lg:grid-cols-4 gap-2">
                         className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 resize-none"
                         placeholder="Add any additional context or implementation details..."
                       />
@@ -2837,22 +2837,22 @@ const ClientAssessments = () => {
                       <div className="flex items-center space-x-3">
                         <button
                           onClick={handleSaveResponse}
-                          disabled={saving}
-                          className="flex items-center px-6 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors disabled:opacity-50"
+                <div className="mb-4">
+                  <label className="block text-xs font-medium text-gray-700 mb-2">Supporting Evidence</label>
                         >
                           {saving ? (
                             <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white mr-2"></div>
-                          ) : (
+                    <div className="mb-3 space-y-1">
                             <Save className="h-4 w-4 mr-2" />
-                          )}
+                        <div key={fileIndex} className="flex items-center justify-between p-2 bg-gray-50 rounded border">
                           {saving ? 'Saving...' : 'Save'}
                         </button>
-
-                        <button
+                            <span className="text-xs font-medium text-gray-900">{file.name}</span>
+                            <span className="text-xs text-gray-400">({file.size})</span>
                           onClick={() => {
                             if (currentQuestionIndex < selectedControl.questions.length - 1) {
-                              setCurrentQuestionIndex(currentQuestionIndex + 1);
-                            }
+                            <button className="text-blue-600 hover:text-blue-800 text-xs">View</button>
+                            <button className="text-red-600 hover:text-red-800 text-xs">Remove</button>
                           }}
                           disabled={currentQuestionIndex === selectedControl.questions.length - 1}
                           className="flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
@@ -2860,21 +2860,21 @@ const ClientAssessments = () => {
                           Next
                           <ArrowRight className="h-4 w-4 ml-2" />
                         </button>
-                      </div>
+                  <div className="border-2 border-dashed border-gray-300 rounded-lg p-4 text-center hover:border-gray-400 transition-colors cursor-pointer">
                     </div>
-                  </div>
-
+                    <p className="text-xs font-medium text-blue-600 mb-1">Upload</p>
+                    <p className="text-xs text-gray-400">Upload documents, screenshots, or other evidence (PDF, DOC, JPG, PNG)</p>
                   {/* Additional spacing for scrolling */}
                   <div className="h-20"></div>
                 </div>
               ) : (
                 <div className="flex items-center justify-center h-full">
-                  <div className="text-center">
+                  <label className="block text-xs font-medium text-gray-700 mb-2">Additional Comments</label>
                     <Shield className="h-12 w-12 text-gray-400 mx-auto mb-4" />
                     <h3 className="text-lg font-medium text-gray-900 mb-2">No Questions Available</h3>
                     <p className="text-gray-600">Select a framework and control to begin the assessment.</p>
-                  </div>
-                </div>
+                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 resize-none text-sm"
+                    rows={2}
               )}
             </div>
           </div>
@@ -2882,20 +2882,20 @@ const ClientAssessments = () => {
           {/* Sticky Help Panel */}
           {showHelp && (
             <div className="w-80 bg-white border-l border-gray-200 flex flex-col sticky top-0 h-screen">
-              <div className="flex items-center justify-between p-4 border-b border-gray-200 bg-white">
+            <div className="flex items-center justify-between p-4 bg-white border-t border-gray-200 sticky bottom-0 z-30">
                 <h3 className="font-semibold text-gray-900">Control Help</h3>
                 <button
                   onClick={() => setShowHelp(false)}
-                  className="p-1 hover:bg-gray-100 rounded"
+                className="flex items-center px-3 py-2 text-gray-600 border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors disabled:opacity-50 disabled:cursor-not-allowed text-sm"
                 >
                   <X className="h-4 w-4 text-gray-500" />
                 </button>
               </div>
 
-              <div className="flex-1 p-4 space-y-6 overflow-y-auto">
+              <div className="flex items-center space-x-3">
                 {/* Control Description */}
                 <div>
-                  <div className="flex items-center space-x-2 mb-3">
+                  className="px-3 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors font-medium text-sm"
                     <Info className="h-4 w-4 text-blue-600" />
                     <h4 className="font-medium text-gray-900">Control Description</h4>
                   </div>
@@ -2903,7 +2903,7 @@ const ClientAssessments = () => {
                     {selectedControl?.description || 'Select a control to view its description.'}
                   </p>
                 </div>
-
+                  className="flex items-center px-3 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed font-medium text-sm"
                 {/* Relevant Documents */}
                 <div>
                   <div className="flex items-center space-x-2 mb-3">
@@ -2915,7 +2915,7 @@ const ClientAssessments = () => {
                       <FileText className="h-4 w-4 text-gray-500" />
                       <span className="text-gray-700">Access Control Policy Template</span>
                     </div>
-                    <div className="flex items-center space-x-2 p-2 bg-gray-50 rounded text-sm cursor-pointer hover:bg-gray-100 transition-colors">
+          <div className="w-80 bg-white border-l border-gray-200 sticky top-0 h-screen overflow-hidden">
                       <FileText className="h-4 w-4 text-gray-500" />
                       <span className="text-gray-700">User Account Management Guide</span>
                     </div>
@@ -2925,14 +2925,14 @@ const ClientAssessments = () => {
                     </div>
                     <div className="flex items-center space-x-2 p-2 bg-gray-50 rounded text-sm cursor-pointer hover:bg-gray-100 transition-colors">
                       <FileText className="h-4 w-4 text-gray-500" />
-                      <span className="text-gray-700">Compliance Framework Guide</span>
+            <div className="p-4 space-y-4 overflow-y-auto h-full pb-20">
                     </div>
                   </div>
                 </div>
 
-                {/* Answering Tips */}
+                  <h4 className="font-medium text-gray-900 text-sm">Control Description</h4>
                 <div>
-                  <div className="flex items-center space-x-2 mb-3">
+                <p className="text-xs text-gray-600 leading-relaxed">
                     <MessageSquare className="h-4 w-4 text-blue-600" />
                     <h4 className="font-medium text-gray-900">Answering Tips</h4>
                   </div>
@@ -2941,13 +2941,13 @@ const ClientAssessments = () => {
                       <div className="w-2 h-2 bg-green-500 rounded-full mt-2 flex-shrink-0"></div>
                       <div>
                         <p className="font-medium text-green-700">YES:</p>
-                        <p className="text-gray-600">Choose when the control is fully implemented and documented with evidence.</p>
+                  <h4 className="font-medium text-gray-900 text-sm">Relevant Documents</h4>
                       </div>
-                    </div>
+                <div className="space-y-1">
                     <div className="flex items-start space-x-2">
-                      <div className="w-2 h-2 bg-red-500 rounded-full mt-2 flex-shrink-0"></div>
+                    <div key={index} className="flex items-center space-x-2 p-2 bg-gray-50 rounded border hover:bg-gray-100 transition-colors cursor-pointer">
                       <div>
-                        <p className="font-medium text-red-700">NO:</p>
+                      <span className="text-xs text-gray-700">{doc}</span>
                         <p className="text-gray-600">Choose when the control is not implemented or significantly lacking.</p>
                       </div>
                     </div>
@@ -2959,42 +2959,42 @@ const ClientAssessments = () => {
                       </div>
                     </div>
                     <div className="flex items-start space-x-2">
-                      <div className="w-2 h-2 bg-gray-500 rounded-full mt-2 flex-shrink-0"></div>
+                  <h4 className="font-medium text-gray-900 text-sm">Answering Tips</h4>
                       <div>
-                        <p className="font-medium text-gray-700">NOT APPLICABLE:</p>
+                <div className="space-y-2">
                         <p className="text-gray-600">Choose when the control doesn't apply to your organization.</p>
                       </div>
                     </div>
-                  </div>
-                </div>
+                      <p className="text-xs font-medium text-green-700">YES:</p>
+                      <p className="text-xs text-green-600">Choose when the control is fully implemented and documented with evidence.</p>
 
                 {/* Progress Summary */}
                 <div>
                   <div className="flex items-center space-x-2 mb-3">
                     <BarChart3 className="h-4 w-4 text-blue-600" />
-                    <h4 className="font-medium text-gray-900">Progress Summary</h4>
-                  </div>
+                      <p className="text-xs font-medium text-red-700">NO:</p>
+                      <p className="text-xs text-red-600">Choose when the control is not implemented or significantly lacking.</p>
                   <div className="space-y-2 text-sm">
                     <div className="flex justify-between">
                       <span className="text-gray-600">Current Control:</span>
                       <span className="font-medium text-gray-900">{getControlProgress()}%</span>
                     </div>
-                    <div className="flex justify-between">
-                      <span className="text-gray-600">Overall Framework:</span>
-                      <span className="font-medium text-blue-600">{getFrameworkProgress()}%</span>
+                      <p className="text-xs font-medium text-yellow-700">PLAN:</p>
+                      <p className="text-xs text-yellow-600">Choose when you have a plan to implement but haven't started yet.</p>
+          <div className="p-4 space-y-6 overflow-y-auto h-full">
                     </div>
-                    <div className="flex justify-between">
+              <div key={question.id} className="bg-white rounded-lg shadow-sm border border-gray-200 p-4">
                       <span className="text-gray-600">Questions Remaining:</span>
-                      <span className="font-medium text-gray-900">
-                        {(selectedFramework?.totalQuestions || 0) - (selectedFramework?.answeredQuestions || 0)}
-                      </span>
-                    </div>
+                <div className="flex items-start space-x-3 mb-4">
+                      <p className="text-xs font-medium text-gray-700">NOT APPLICABLE:</p>
+                      <p className="text-xs text-gray-600">Choose when the control doesn't apply to your organization.</p>
+                <p className="text-sm font-semibold text-blue-600">
                   </div>
-                </div>
+                    <h3 className="text-base font-semibold text-gray-900 mb-1">
               </div>
             </div>
-          )}
-        </div>
+                    <p className="text-gray-600 text-xs mb-3">{question.description}</p>
+                    <p className="text-xs text-gray-400">
       </div>
     </div>
   );
