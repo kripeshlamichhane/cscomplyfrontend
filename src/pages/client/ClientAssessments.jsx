@@ -16,7 +16,8 @@ import {
   MessageSquare,
   X,
   HelpCircle,
-  Download
+  Download,
+  BarChart3
 } from 'lucide-react';
 
 const ClientAssessments = () => {
